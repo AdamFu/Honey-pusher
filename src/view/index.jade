@@ -1,0 +1,20 @@
+!!!5
+html
+  head
+    title Honey Pusher
+    script(src="http://honey.hunantv.com/src/config.js")
+    script(src="http://honey.hunantv.com/src/honey.source.js")
+  body
+    h1 Honey Pusher #{ key }
+    script
+      honey.go('lib_jquery, lib_socket', function() {
+        var socket = io.connect('http://localhost');
+        socket.emit('client-session', {project: 'ihunantv', key: '#{ key }'});
+        socket.on('news', function (data) {
+            $('<p />').html(data.hello).appendTo('body');
+            socket.emit('my other event', { my: 'data' });
+        });    
+        socket.on('msg', function (data) {
+            console.log(data);
+        });
+      });

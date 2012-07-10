@@ -1,0 +1,16 @@
+{
+    "name": "Honey.pusher",
+    "version": "0.1.0",
+    "description": "APN Server",
+    "homepage": "http://xydudu.com",
+    "keywords": ["websocket", "socket", "realtime", "socket.io", "comet", "ajax"],
+    "author": "Lian Hsueh <xuedudu@gmail.com>",
+    "dependencies": {
+        "socket.io": "",
+        "express": "",
+        "jade": "",
+        "connect": "",
+        "socket.io-client": "0.9.6"
+    },
+    "engines": { "node": ">= 0.6.0" }
+}

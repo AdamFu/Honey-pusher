@@ -1,0 +1,12 @@
+build
+node_modules
+# Test DB
+*.sqlite
+# Test
+test.*
+.hg
+.svn
+CVS
+*~.nib
+*.swp
+*~
