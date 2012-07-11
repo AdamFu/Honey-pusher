@@ -9,7 +9,7 @@ html
     script(src="http://pusher.hunantv.com/socket.io/socket.io.js")
     script
       honey.go('lib_jquery', function() {
-        var socket = io.connect('http://pusher.hunantv.com');
+        var socket = io.connect('http://localhost:8888');
         socket.emit('client-session', {project: 'ihunantv', key: '#{ key }'});
         socket.on('news', function (data) {
             $('<p />').html(data.hello).appendTo('body');
