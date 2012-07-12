@@ -3,7 +3,7 @@
 express = require 'express'
 configs = require './config'
 app = express.createServer()
-app.listen configs.port
+app.listen '0.0.0.0', configs.port
 
 io = require('socket.io').listen(app)
 

@@ -6,10 +6,9 @@ html
     script(src="http://honey.hunantv.com/src/honey.source.js")
   body
     h1 Honey Pusher #{ key }
-    script(src="http://pusher.hunantv.com/socket.io/socket.io.js")
     script
-      honey.go('lib_jquery', function() {
-        var socket = io.connect('http://localhost:8888');
+      honey.go('lib_jquery, lib_socket', function() {
+        var socket = io.connect('http://localpusher.hunantv.com');
         socket.emit('client-session', {project: 'ihunantv', key: '#{ key }'});
         socket.on('news', function (data) {
             $('<p />').html(data.hello).appendTo('body');
