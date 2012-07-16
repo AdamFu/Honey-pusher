@@ -1,4 +1,4 @@
-
+# publish
 justMsg = (req, res)->
     res.send 'Honey Pusher publish API'
 
@@ -6,11 +6,11 @@ publish = (req, res, io)->
     ###
     {from: , key: , project:, msg:, type:}
     ###
-    
+     
     data = req.body
     if data.project
         room = if data.key then "#{ data.project}:#{ data.key }" else data.project
-        io.sockets.in(room).emit data.type, data.msg
+        io.sockets.in(room).emit data.type, data
 
     res.send req.body
 
