@@ -15,7 +15,6 @@ io.sockets.on 'connection', (socket)->
     socket.on 'client-session', (data)->
         socket.join "#{ data.project }:#{ data.key }"
         socket.join data.project
-        channels = data.channels.split(',')
-        if channels.length then for channel in channels
+        if data.channels then for channel in data.channels.split(',')
             channel = S(channel).trim().s
             socket.join "#{ data.project }:channel:#{ channel }"
