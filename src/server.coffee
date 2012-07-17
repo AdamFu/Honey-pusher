@@ -14,5 +14,6 @@ io.sockets.on 'connection', (socket)->
     socket.on 'client-session', (data)->
         socket.join "#{ data.project }:#{ data.key }"
         socket.join data.project
+        console.log data.channels
         for channel in data.channels
             socket.join "#{ data.project }:channel:#{ channel }"
