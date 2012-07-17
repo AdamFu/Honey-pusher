@@ -10,6 +10,7 @@
         "express": "",
         "jade": "",
         "connect": "",
+        "string": "",
         "socket.io-client": "0.9.6"
     },
     "engines": { "node": ">= 0.6.0" }
