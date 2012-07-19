@@ -6,16 +6,7 @@
       return res.send(404);
     });
     app.get('/', function(req, res) {
-      return res.render('index', {
-        layout: false,
-        key: 1
-      });
-    });
-    app.get('/client2', function(req, res) {
-      return res.render('index', {
-        layout: false,
-        key: 2
-      });
+      return res.send('Honey Pusher is running...');
     });
     return ['publish', 'subscribe'].map(function(controllerName) {
       return require('./' + controllerName)(app, io);
