@@ -1,5 +1,7 @@
 (function() {
 
+  exports.VSERSION = '2.0';
+
   exports.TOKEN = 'aS5odW5hbnR2LmNvbQ==';
 
   exports.domain = 'http://127.0.0.1:8888';
