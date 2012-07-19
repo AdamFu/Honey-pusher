@@ -1,6 +1,6 @@
 (function() {
 
-  exports.VSERSION = '2.0';
+  exports.VSERSION = '1.1';
 
   exports.TOKEN = 'aS5odW5hbnR2LmNvbQ==';
 
