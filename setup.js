@@ -7,7 +7,7 @@
     app.use(express.bodyParser());
     app.use(express.cookieParser());
     app.use(express.session({
-      secret: "honey"
+      secret: "honey pusher"
     }));
     app.enable('view cache');
     app.use(express.static(__dirname + '/static'));
