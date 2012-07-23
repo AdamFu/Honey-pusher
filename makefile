@@ -3,7 +3,7 @@ npm:
 
 deploy: 
 	@echo building...
-	@coffee -o build -c src/
+	@coffee -o build src/
 	@echo copy view
 	@cp -rf src/view build/
 	@echo copy package.json

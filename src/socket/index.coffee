@@ -1,6 +1,7 @@
 "use strict"
 # Lian Hsueh 7.20/2012
 
+S = require 'string'
 onlines = ''
 module.exports = (io)->
     io.set 'log level', 1

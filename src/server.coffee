@@ -3,7 +3,6 @@
 # Lian Hsueh
 
 express = require 'express'
-S = require 'string'
 configs = require './config'
 app = express.createServer()
 app.listen configs.port
