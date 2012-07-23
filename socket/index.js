@@ -1,12 +1,17 @@
 (function() {
   "use strict";
+  var onlines;
+
+  onlines = '';
+
   module.exports = function(io) {
     io.set('log level', 1);
     return io.sockets.on('connection', function(socket) {
       socket.on('client-session', function(data) {
         var channel, key, _i, _len, _ref, _results;
         key = "" + data.project + ":" + data.key;
-        console.log(socket.id);
+        console.log(socket.id, onlines);
+        onlines += "[" + key + ":" + socket.id + "]";
         socket.broadcast.emit('add_user', socket.id);
         socket.join(key);
         socket.join(data.project);
@@ -21,7 +26,7 @@
           return _results;
         }
       });
-      return socket.on('disconnect', function() {
+      return socket.on('disconnect', function(_user) {
         console.log('----disconnect---');
         console.log(socket.id);
         return console.log('----disconnect end---');

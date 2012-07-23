@@ -1,0 +1,16 @@
+!!!5
+html
+  head
+    title Honey Pusher
+    script(src="http://honey.hunantv.com/src/config.js")
+    script(src="http://honey.hunantv.com/src/honey.source.js")
+  body
+    h1 Honey Pusher
+    script
+      online = 0;
+      honey.go('lib_jquery, lib_socket, mod_pusher', function() {
+        honey.pusher({
+          socket: '#{ pusher }',
+          data: {project: 'ihunantv', key: 'test-client'}
+        }); 
+      });
