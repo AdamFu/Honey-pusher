@@ -4,7 +4,7 @@ module.exports = (app, express, io)->
 
     app.use express.bodyParser()
     app.use express.cookieParser()
-    app.use express.session secret: "honey"
+    app.use express.session secret: "honey pusher"
     app.enable 'view cache'
     app.use express.static(__dirname + '/static')
     app.set 'views', __dirname + '/view'
