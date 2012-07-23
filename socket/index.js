@@ -2,7 +2,9 @@
 (function() {
   "use strict";
 
-  var onlines;
+  var S, onlines;
+
+  S = require('string');
 
   onlines = '';
 

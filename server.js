@@ -2,11 +2,9 @@
 (function() {
   "use strict";
 
-  var S, app, configs, express, io;
+  var app, configs, express, io;
 
   express = require('express');
-
-  S = require('string');
 
   configs = require('./config');
 
