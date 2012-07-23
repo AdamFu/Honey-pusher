@@ -6,7 +6,7 @@
 
   exports.domain = 'http://honey.hunantv.com:8888';
 
-  exports.port = '8888';
+  exports.port = 8888;
 
   exports.numCPUs = require('os').cpus().length;
 
