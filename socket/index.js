@@ -2,11 +2,9 @@
 (function() {
   "use strict";
 
-  var S, onlines;
+  var S;
 
   S = require('string');
-
-  onlines = '';
 
   module.exports = function(io) {
     io.set('log level', 1);
@@ -14,8 +12,6 @@
       socket.on('client-session', function(data) {
         var channel, key, _i, _len, _ref, _results;
         key = "" + data.project + ":" + data.key;
-        console.log(socket.id, onlines);
-        onlines += "[" + key + ":" + socket.id + "]";
         socket.broadcast.emit('add_user', socket.id);
         socket.join(key);
         socket.join(data.project);
