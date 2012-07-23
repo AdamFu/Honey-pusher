@@ -14,10 +14,10 @@
 
   io = require('socket.io').listen(app);
 
+  require('./socket')(io);
+
   require('./setup')(app, express, io);
 
   require('./controller')(app, io);
-
-  require('./socket')(io);
 
 }).call(this);
