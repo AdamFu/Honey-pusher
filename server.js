@@ -10,7 +10,7 @@
 
   app = express.createServer();
 
-  app.listen(configs.port);
+  app.listen(configs.port, '127.0.0.1');
 
   io = require('socket.io').listen(app);
 
