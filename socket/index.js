@@ -21,6 +21,7 @@
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
             channel = _ref[_i];
             channel = S(channel).trim().s;
+            console.log("" + data.project + ":channel:" + channel);
             _results.push(socket.join("" + data.project + ":channel:" + channel));
           }
           return _results;

@@ -32,6 +32,7 @@
       } else {
         room = data.to ? "" + data.project + ":" + data.to : data.project;
       }
+      console.log(room);
       io.sockets["in"](room).emit(data.type, data);
     }
     return res.send(req.body);

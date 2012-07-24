@@ -11,6 +11,18 @@
         pusher: configs.domain
       });
     });
+    app.get('/2', function(req, res) {
+      return res.render('index2', {
+        layout: false,
+        pusher: configs.domain
+      });
+    });
+    app.get('/3', function(req, res) {
+      return res.render('index3', {
+        layout: false,
+        pusher: configs.domain
+      });
+    });
     return ['publish', 'subscribe'].map(function(controllerName) {
       return require('./' + controllerName)(app, io);
     });
