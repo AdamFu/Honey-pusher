@@ -25,6 +25,7 @@ publish = (req, res, io)->
             room = "#{data.project}:channel:#{data.channel}"
         else
             room = if data.to then "#{ data.project}:#{ data.to }" else data.project
+        console.log room
         io.sockets.in(room).emit data.type, data
 
     res.send req.body

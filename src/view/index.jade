@@ -5,12 +5,24 @@ html
     script(src="http://honey.hunantv.com/src/config.js")
     script(src="http://honey.hunantv.com/src/honey.source.js")
   body
-    h1 Honey Pusher
+    h1 Honey Pusher 1
     script
       online = 0;
       honey.go('lib_jquery, lib_socket, mod_pusher', function() {
         honey.pusher({
-          socket: '#{ pusher }',
-          data: {project: 'ihunantv', key: 'test-client'}
-        }); 
+            socket: '#{ pusher }',
+            data: {project: 'ihunantv', key: '1', channels: 'server, movie, music'}
+          }, function(socket) {
+            
+            socket.on('subscribe', function(msg) {
+              //$('<p />').html(msg.channel +'send a msg:'+ msg.msg);
+              $('<p />').html(msg.channel +'send a msg:'+ msg.msg).appendTo('body');
+              //console.log(msg); 
+            });
+
+            socket.on('msg', function(msg) {
+              $('<p />').html(msg.channel +'send a msg:'+ msg.msg);
+            });
+
+        });
       });

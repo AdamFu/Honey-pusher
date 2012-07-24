@@ -43,5 +43,25 @@ Honey Pusher 是一个简单的消息push系统，可以很方便的应用于项
 		
 	});
 
+	// mod pusher added
+	honey.go('lib_jquery, lib_socket, mod_pusher', function() {
+        honey.pusher({
+          socket: 'http://pusher.hunantv.com',
+          data: {project: 'ihunantv', key: '3', channels: 'server, tv, movie'}
+        }, function(socket) {
+            socket.on('subscribe', function(msg) {
+            	// code here
+          	});
+
+          	socket.on('msg', function(msg) {
+            	console.log(msg);
+          	});
+		}); 
+	});
+
+
 
 可以看到，不管是后端push还是客户问的获取信息都很简单，当然这份代码如果要上生产环境，你必要做的是，加密一些数据，以及后端push的一个认证机制，要不然，会出现很大的安全问题。
+
+
+

@@ -2,7 +2,7 @@
 # Lian Hsueh 7.20/2012
 
 S = require 'string'
-onlines = ''
+#onlines = ''
 module.exports = (io)->
     io.set 'log level', 1
     io.sockets.on 'connection', (socket)->
@@ -10,14 +10,15 @@ module.exports = (io)->
             
             key = "#{ data.project }:#{ data.key }"
             
-            console.log socket.id, onlines
-            onlines += "[#{ key }:#{ socket.id }]"
+            #console.log socket.id, onlines
+            #onlines += "[#{ key }:#{ socket.id }]"
             socket.broadcast.emit 'add_user', socket.id
              
             socket.join key
             socket.join data.project
             if data.channels then for channel in data.channels.split(',')
                 channel = S(channel).trim().s
+                console.log "#{ data.project }:channel:#{ channel }"
                 socket.join "#{ data.project }:channel:#{ channel }"
 
         socket.on 'disconnect', (_user)->
