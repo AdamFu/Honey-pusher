@@ -5,22 +5,28 @@
   configs = require('../config');
 
   module.exports = function(app, io) {
-    app.get('/', function(req, res) {
+    app.get('/1', function(req, res) {
+      return res.send('Honey pusher by Honey lab');
+    });
+    app.get('/1', function(req, res) {
       return res.render('index', {
         layout: false,
-        pusher: configs.domain
+        pusher: configs.domain,
+        id: 1
       });
     });
     app.get('/2', function(req, res) {
-      return res.render('index2', {
+      return res.render('index', {
         layout: false,
-        pusher: configs.domain
+        pusher: configs.domain,
+        id: 2
       });
     });
     app.get('/3', function(req, res) {
-      return res.render('index3', {
+      return res.render('index', {
         layout: false,
-        pusher: configs.domain
+        pusher: configs.domain,
+        id: 3
       });
     });
     return ['publish', 'subscribe'].map(function(controllerName) {
