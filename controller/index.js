@@ -5,7 +5,7 @@
   configs = require('../config');
 
   module.exports = function(app, io) {
-    app.get('/1', function(req, res) {
+    app.get('/', function(req, res) {
       return res.send('Honey pusher by Honey lab');
     });
     app.get('/1', function(req, res) {
