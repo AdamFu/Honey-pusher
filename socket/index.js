@@ -28,9 +28,7 @@
         }
       });
       return socket.on('disconnect', function(_user) {
-        console.log('----disconnect---');
-        console.log(socket.id);
-        return console.log('----disconnect end---');
+        return socket.broadcast.emit('remove_user', socket.id);
       });
     });
   };

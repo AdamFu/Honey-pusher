@@ -6,7 +6,10 @@
 
   module.exports = function(app, io) {
     app.get('/', function(req, res) {
-      return res.send('Honey pusher by Honey lab');
+      return res.render('online', {
+        layout: false,
+        pusher: configs.domain
+      });
     });
     app.get('/1', function(req, res) {
       return res.render('index', {
