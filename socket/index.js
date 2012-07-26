@@ -14,7 +14,7 @@
   };
 
   pushOnlines = function(_s) {
-    return socket.broadcast.emit('onlines', _.keys(onlines.users));
+    return _s.broadcast.emit('onlines', _.keys(onlines.users));
   };
 
   module.exports = function(io) {
