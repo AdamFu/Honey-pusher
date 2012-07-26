@@ -2,7 +2,7 @@
 (function() {
   "use strict";
 
-  var S, onlines, _;
+  var S, onlines, pushOnlines, _;
 
   _ = require('underscore')._;
 
@@ -13,12 +13,17 @@
     sessions: {}
   };
 
+  pushOnlines = function(_s) {
+    return socket.broadcast.emit('onlines', _.keys(onlines.users));
+  };
+
   module.exports = function(io) {
     io.set('log level', 1);
     return io.sockets.on('connection', function(socket) {
       var sessions, users;
       users = onlines.users;
       sessions = onlines.sessions;
+      pushOnlines(socket);
       socket.on('client-session', function(data) {
         var channel, key, user, _i, _len, _ref, _results;
         key = "" + data.project + ":" + data.key;
@@ -29,10 +34,8 @@
           user = _.uniq(user);
         } else {
           users[key] = [socket.id];
-          socket.broadcast.emit('add_user', {
-            current: key,
-            onlines: _.keys(users)
-          });
+          socket.broadcast.emit('add_user', key);
+          pushOnlines(socket);
         }
         socket.join(key);
         socket.join(data.project);
@@ -57,10 +60,8 @@
         }
         if (!user || !user.length) {
           delete users[key];
-          return socket.broadcast.emit('remove_user', {
-            current: key,
-            onlines: _.keys(users)
-          });
+          socket.broadcast.emit('remove_user', key);
+          return pushOnlines(socket);
         }
       });
     });

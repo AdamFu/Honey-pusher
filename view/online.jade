@@ -4,6 +4,12 @@ html
     title Honey Pusher
     //script(src="http://honey.hunantv.com/i/config.js")
     script(src="http://honey.hunantv.com/i/js/honey.source.js")
+    style
+      #user {
+        font-size: 18px;
+        font-weight: 800;
+        color: blue;
+      }
   body
     h1 Honey Pusher Onlines
     h3 Online users
@@ -14,13 +20,14 @@ html
       online = 0;
       honey.go('lib_jquery, lib_socket', function() {
         var socket = io.connect('http://honey.hunantv.com:8888');
-        socket.on('add_user', function(_data) {
-            $('#users').html(_data.onlines.join(','));
-            $('<p />').html(_data.current +' is online.').appendTo('#logs'); 
+        socket.on('onlines', function(_users) {
+            $('#users').html(_users.join(','));
+        });
+        socket.on('add_user', function(_user) {
+            $('<p />').html(_user +' is online.').appendTo('#logs'); 
         }); 
-        socket.on('remove_user', function(_data) {
-            $('#users').html(_data.onlines.join(','));
-            $('<p />').html(_data.current +' is offline.')
+        socket.on('remove_user', function(_user) {
+            $('<p />').html(_user +' is offline.')
               .css('color', 'red').appendTo('#logs'); 
         }); 
         socket.on('connect', function() {
