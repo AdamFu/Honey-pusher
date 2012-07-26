@@ -29,7 +29,10 @@
           user = _.uniq(user);
         } else {
           user = [socket.id];
-          socket.broadcast.emit('add_user', key);
+          socket.broadcast.emit('add_user', {
+            current: key,
+            onlines: _.keys(users)
+          });
         }
         socket.join(key);
         socket.join(data.project);
@@ -55,7 +58,10 @@
         }
         if (!user || !user.length) {
           delete users[key];
-          return socket.broadcast.emit('remove_user', socket.id);
+          return socket.broadcast.emit('remove_user', {
+            current: key,
+            onlines: _.keys(users)
+          });
         }
       });
     });
