@@ -23,7 +23,7 @@
       var ip, sessions, users;
       users = onlines.users;
       sessions = onlines.sessions;
-      console.log(socket);
+      console.log(socket.handshake.address);
       ip = socket.remoteAddress;
       pushOnlines(socket);
       socket.on('client-session', function(data) {
