@@ -24,7 +24,7 @@
       users = onlines.users;
       sessions = onlines.sessions;
       console.log(socket.handshake.address);
-      ip = socket.remoteAddress;
+      ip = socket.handshake.address.address;
       pushOnlines(socket);
       socket.on('client-session', function(data) {
         var channel, key, user, _i, _len, _ref, _results;
