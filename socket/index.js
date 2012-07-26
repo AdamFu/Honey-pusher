@@ -53,7 +53,7 @@
         if (user) {
           user = _.without(user, socket.id);
         }
-        if (!user.length) {
+        if (!user || !user.length) {
           delete users[key];
           return socket.broadcast.emit('remove_user', socket.id);
         }
