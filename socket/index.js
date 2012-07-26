@@ -2,17 +2,35 @@
 (function() {
   "use strict";
 
-  var S;
+  var S, onlines, _;
+
+  _ = require('underscore')._;
 
   S = require('string');
+
+  onlines = {
+    users: {},
+    sessions: {}
+  };
 
   module.exports = function(io) {
     io.set('log level', 1);
     return io.sockets.on('connection', function(socket) {
+      var sessions, users;
+      users = onlines.users;
+      sessions = onlines.sessions;
       socket.on('client-session', function(data) {
-        var channel, key, _i, _len, _ref, _results;
+        var channel, key, user, _i, _len, _ref, _results;
         key = "" + data.project + ":" + data.key;
-        socket.broadcast.emit('add_user', socket.id);
+        sessions[socket.id] = key;
+        user = users[key];
+        if (user) {
+          user.push(socket.id);
+          user = _.uniq(user);
+        } else {
+          user = [socket.id];
+          socket.broadcast.emit('add_user', key);
+        }
         socket.join(key);
         socket.join(data.project);
         if (data.channels) {
@@ -28,7 +46,17 @@
         }
       });
       return socket.on('disconnect', function(_user) {
-        return socket.broadcast.emit('remove_user', socket.id);
+        var key, user;
+        key = sessions[socket.id];
+        user = users[key];
+        delete sessions[socket.id];
+        if (user) {
+          user = _.without(user, socket.id);
+        }
+        if (!user.length) {
+          delete users[key];
+          return socket.broadcast.emit('remove_user', socket.id);
+        }
       });
     });
   };
