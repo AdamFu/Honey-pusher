@@ -20,13 +20,15 @@
   module.exports = function(io) {
     io.set('log level', 1);
     return io.sockets.on('connection', function(socket) {
-      var sessions, users;
+      var ip, sessions, users;
       users = onlines.users;
       sessions = onlines.sessions;
+      ip = socket.remoteAddress;
       pushOnlines(socket);
       socket.on('client-session', function(data) {
         var channel, key, user, _i, _len, _ref, _results;
-        key = "" + data.project + ":" + data.key;
+        key = "" + data.project + ":" + data.key + ":" + ip;
+        console.log(onlines);
         sessions[socket.id] = key;
         user = users[key];
         if (user) {
