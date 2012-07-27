@@ -1,5 +1,4 @@
 middleware = require './tools/middleware'
-
 module.exports = (app, express, io)->
 
     app.use express.bodyParser()
@@ -14,6 +13,5 @@ module.exports = (app, express, io)->
     }
 
     app.use middleware.viewOption
-    
     io.set 'authorization', (data, accept)->
         accept null, true

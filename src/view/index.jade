@@ -2,16 +2,16 @@
 html
   head
     title Honey Pusher
-    script(src="http://honey.hunantv.com/src/config.js")
-    script(src="http://honey.hunantv.com/src/honey.source.js")
+    //script(src="http://honey.hunantv.com/i/config.js")
+    script(src="http://honey.hunantv.com/i/js/honey.source.js")
   body
-    h1 Honey Pusher 1
+    h1 Honey Pusher Demo (UID: #{ id })
     script
       online = 0;
       honey.go('lib_jquery, lib_socket, mod_pusher', function() {
         honey.pusher({
             socket: '#{ pusher }',
-            data: {project: 'ihunantv', key: '1', channels: 'server, movie, music'}
+            data: {project: 'ihunantv', key: '#{ id }', channels: 'server, movie, music'}
           }, function(socket) {
             
             socket.on('subscribe', function(msg) {
