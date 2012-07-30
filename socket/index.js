@@ -28,7 +28,8 @@
       pushOnlines(socket);
       socket.on('client-session', function(data) {
         var channel, key, user, _i, _len, _ref, _results;
-        key = "" + data.project + ":" + data.key + ":" + ip;
+        //key = "" + data.project + ":" + data.key + ":" + ip;
+        key = "" + data.project + ":" + data.key;
         sessions[socket.id] = key;
         user = users[key];
         if (user) {
