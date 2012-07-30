@@ -5,9 +5,9 @@
 
   exports.TOKEN = 'aS5odW5hbnR2LmNvbQ==';
 
-  exports.domain = 'http://honey.hunantv.com:8888';
+  exports.domain = 'http://pusher.hunantv.com';
 
-  exports.port = 8888;
+  exports.port = 80;
 
   exports.numCPUs = require('os').cpus().length;
 
