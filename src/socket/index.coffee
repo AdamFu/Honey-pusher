@@ -21,7 +21,8 @@ module.exports = (io)->
         pushOnlines socket
 
         socket.on 'client-session', (data)->
-            key = "#{ data.project }:#{ data.key }:#{ ip }"
+            #key = "#{ data.project }:#{ data.key }:#{ ip }"
+            key = "#{ data.project }:#{ data.key }"
 
             sessions[socket.id] = key
             user = users[key]
