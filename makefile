@@ -4,8 +4,9 @@ npm:
 package: 
 	@echo building...
 	@coffee -o build src/
-	@echo copy view
+	@echo copy view and static
 	@cp -rf src/view build/
+	@cp -rf src/static build/static
 	@echo copy package.json
 	@cp package.json build
 

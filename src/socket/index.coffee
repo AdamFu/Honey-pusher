@@ -3,36 +3,40 @@
 #
 _ = require('underscore')._
 S = require 'string'
-
-onlines =
-    users: {}
-    sessions: {}
+auth = require "../tools/auth"
+r = require('../tools/redis')()
 
 pushOnlines = (_s)->
-    _s.broadcast.emit 'onlines', _.keys onlines.users
+    #_s.broadcast.emit 'onlines', r.keys 'onlines'
+    r.keys 'onlines:*', (_e, _onlines)->
+        onlines = _.map _onlines, (_item)->
+            return _item.replace "onlines:", ""
+        #_s.broadcast.emit 'onlines', onlines
+        _s.sockets.in('admin').emit 'onlines', onlines
 
 module.exports = (io)->
     io.set 'log level', 1
+    pushOnlines io
     io.sockets.on 'connection', (socket)->
-        users = onlines.users
-        sessions = onlines.sessions
-        console.log socket.handshake.address
         ip = socket.handshake.address.address
-        pushOnlines socket
+        console.log "#{ ip }.. viewing"
 
-        socket.on 'client-session', (data)->
-            #key = "#{ data.project }:#{ data.key }:#{ ip }"
-            key = "#{ data.project }:#{ data.key }"
-
-            sessions[socket.id] = key
-            user = users[key]
-            if user
-                user.push socket.id
-                user = _.uniq(user)
+        socket.on 'client-admin', (data)->
+            console.log auth.is_admin(data)
+            if auth.is_admin data
+                socket.join "admin"
             else
-                users[key] = [socket.id]
-                socket.broadcast.emit 'add_user', key
-                pushOnlines socket
+                socket.emit 'out', 1
+            
+        socket.on 'client-session', (data)->
+
+            key = data.key ? ip
+            key = "#{ data.project }:#{ key }"
+            socket.key = key
+
+            r.lpush "onlines:#{ key }", socket.id
+            pushOnlines io
+
              
             socket.join key
             socket.join data.project
@@ -41,12 +45,10 @@ module.exports = (io)->
                 socket.join "#{ data.project }:channel:#{ channel }"
 
         socket.on 'disconnect', (_user)->
-            key = sessions[socket.id]
-            user = users[key]
-            delete sessions[socket.id]
-            if user then users[key] = _.without(user, socket.id)
-            user = users[key]
-            if not user or not user.length
-                delete users[key]
-                socket.broadcast.emit 'remove_user', key
-                pushOnlines socket
+            key = "onlines:#{ socket.key }"
+            r.lrem key, 0, socket.id
+            
+            r.llen key, (_e, _rs)->
+                if not _rs
+                    r.del key
+                pushOnlines io

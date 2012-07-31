@@ -1,0 +1,44 @@
+!!!5
+html
+  head
+    title Honey Pusher
+    //script(src="http://honey.hunantv.com/i/config.js")
+    script(src="http://honey.hunantv.com/i/js/honey.source.js")
+    style
+      #users {
+        font-size: 18px;
+        font-weight: 800;
+        color: blue;
+      }
+  body
+    h1 Honey Pusher Onlines
+    h3 
+      | Online users
+      | <span>0</span>
+    #users 
+    h3 logs
+    #logs
+    script
+      honey.go('lib_jquery, lib_socket', function() {
+        var socket = io.connect('#{ pusher }');
+        socket.emit('client-admin', {
+          token: prompt("password"),
+          project: 'ihunantv'
+        });
+        socket.on('onlines', function(_users) {
+            $('#users').html(_users.join('<br />'));
+            $('h3>span').html(_users.length);
+        });
+        //socket.on('add_user', function(_user) {
+        //    $('<p />').html(_user +' is online.').appendTo('#logs'); 
+        //}); 
+        //socket.on('remove_user', function(_user) {
+        //    $('<p />').html(_user +' is offline.')
+        //      .css('color', 'red').appendTo('#logs'); 
+        //}); 
+        socket.on('connect', function() {
+          $('<p />').html(socket.socket.sessionid +' is online.[self]').appendTo('body'); 
+          //console.log(socket.socket.sessionid);
+        });
+
+      });

@@ -13,5 +13,6 @@ module.exports = (app, express, io)->
     }
 
     app.use middleware.viewOption
+    #io.set 'store', store
     io.set 'authorization', (data, accept)->
         accept null, true

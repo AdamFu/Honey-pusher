@@ -12,7 +12,9 @@
         "connect": "1.9.2",
         "string": "",
         "socket.io-client": "0.9.6",
-        "underscore": ""
+        "underscore": "",
+        "hiredis": "",
+        "redis": ""
     },
     "engines": { "node": ">= 0.6.0" }
 }
