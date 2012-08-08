@@ -1,9 +1,10 @@
-exports.VSERSION = '2.0'
+exports.VSERSION = '3.0'
 # private token
 exports.TOKEN = 'aS5odW5hbnR2LmNvbQ=='
-
 exports.domain = 'http://127.0.0.1'
-#exports.domain = 'http://pusher.hunantv.com'
 exports.port = 9001
-exports.socketport = 9999
+exports.socketport = 8880
+exports.apiport = 8800
+exports.api_runner = 'api.coffee'
+exports.sio_runner = 'sio.coffee'
 exports.numCPUs = require('os').cpus().length

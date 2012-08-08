@@ -22,7 +22,6 @@ module.exports = (io)->
         console.log "#{ ip }.. viewing"
 
         socket.on 'client-admin', (data)->
-            console.log auth.is_admin(data)
             if auth.is_admin data
                 socket.join "admin"
             else
@@ -46,8 +45,8 @@ module.exports = (io)->
 
         socket.on 'disconnect', (_user)->
             key = "onlines:#{ socket.key }"
+            console.log "#{key} offline"
             r.lrem key, 0, socket.id
-            
             r.llen key, (_e, _rs)->
                 if not _rs
                     r.del key

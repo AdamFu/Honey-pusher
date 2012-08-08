@@ -24,4 +24,5 @@ module.exports =
             data.room = room
         #io.sockets.in(room).emit data.type, data
         console.log data
-        r.publish "honey:pusher", JSON.stringify data
+        r.publish "honey:pusher:2", JSON.stringify data
+    onlines: -> r.publish "honey:pusher:2", 'onlines'

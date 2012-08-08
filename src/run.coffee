@@ -1,8 +1,22 @@
-# using node-cluster
+# using proxy socket.io and api server
 # Lian Hsueh
 
-cluster = require 'node-cluster'
-configs = require './config'
-#store = new (require('socket.io-clusterhub'))
-master = cluster.Master({})
-master.register('pusher', "#{__dirname}/server.js", listen: configs.port).dispatch()
+httpProxy = require 'http-proxy'
+http = require 'http'
+
+s = new httpProxy.HttpProxy {
+    target:
+        host: 'localhost'
+        port: 9999
+}
+
+proxyServer = http.createServer (req, res)->
+    if req.url.match /socket.io/
+        s.proxyRequest req, res
+    else
+        res.writeHead(200, {'Content-Type': 'text/plain'})
+        res.end('okay')
+proxyServer.on 'upgrade', (req, socket, head)->
+    s.proxyWebSocketRequest(req, socket, head)
+
+proxyServer.listen(9001)

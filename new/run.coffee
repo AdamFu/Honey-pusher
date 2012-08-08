@@ -1,23 +1,31 @@
 # using proxy socket.io and api server
 # Lian Hsueh
 
-httpProxy = require 'http-proxy'
-http = require 'http'
+mix = require('mixture').mix('epic')
+bouncy = require 'bouncy'
 configs = require './config'
 
-s = new httpProxy.HttpProxy {
-    target:
-        host: 'localhost'
-        port: configs.socketport
-}
+api_port = configs.apiport
+socket_port = configs.socketport
+node_id = 0
+ports = []
 
-proxyServer = http.createServer (req, res)->
-    if req.url.match /socket.io/
-        s.proxyRequest req, res
+sio = mix.task 'socket.io', filename: configs.sio_runner
+api = mix.task 'api', filename: configs.api_runner
+
+for i in [0..configs.numCPUs]
+    socket_port = socket_port + 1
+    node_id = node_id + 1
+    ports.push socket_port
+
+    sio.fork args: [socket_port, node_id]
+
+api.fork args: [api_port]
+
+b = bouncy (req, bounce)->
+    if req.url.match /^\/socket.io/
+        bounce ports[Math.random()*ports.length|0]
     else
-        require('./controller')(req, res)
+        bounce api_port
 
-proxyServer.on 'upgrade', (req, socket, head)->
-    s.proxyWebSocketRequest(req, socket, head)
-
-proxyServer.listen(configs.port)
+b.listen configs.port
