@@ -3,7 +3,7 @@ exports.VSERSION = '3.0'
 exports.TOKEN = 'aS5odW5hbnR2LmNvbQ=='
 exports.domain = 'http://pusher.hunantv.com'
 exports.port = 80
-exports.socketport = 8880
+exports.socketport = 8870
 exports.apiport = 8800
 exports.api_runner = 'api.js'
 exports.sio_runner = 'sio.js'

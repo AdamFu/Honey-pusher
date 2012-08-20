@@ -1,9 +1,7 @@
-# setup io server
-
-#configs = require '../config'
 redis = require "redis"
 sio = require 'socket.io'
 RedisStore = sio.RedisStore
+
 socket_port = process.argv[2] or 8880
 nodeId = process.argv[3] or 0
 io = sio.listen ~~socket_port
@@ -22,7 +20,6 @@ pub = redis.createClient()
 sub = redis.createClient()
 client = redis.createClient()
 
-console.log "io nodeID: #{ nodeId }"
 io.set 'store', new RedisStore {
     redisPub: pub
     redisSub: sub
@@ -30,11 +27,8 @@ io.set 'store', new RedisStore {
     nodeId: ()-> return nodeId
 }
 
-#io.set 'store', new RedisStore {
-#    nodeId: ()-> return nodeId
-#    #redisPub: redispub
-#    #redisSub: redisSub
-#    #redisClient: redisClient
-#}
-
-module.exports = -> io
+io.sockets.on 'connection', (_s)->
+    console.log "client connected: #{ _s.id } with nodeid: #{ nodeId } room: xxx"
+    _s.join 'xxx'
+    _s.on 'disconnect', (_user)->
+        console.log "disconnect: #{ _s.id }"

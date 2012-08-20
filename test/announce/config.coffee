@@ -1,6 +1,3 @@
-exports.VSERSION = '3.0'
-# private token
-exports.TOKEN = 'aS5odW5hbnR2LmNvbQ=='
 exports.domain = 'http://127.0.0.1'
 exports.port = 9001
 exports.socketport = 8870

@@ -1,6 +1,4 @@
-# honey.pusher
-# pub/sub service
-# Lian Hsueh
+# Test socket.io-announce
 
 mix = require('mixture').mix()
 configs = require './config'

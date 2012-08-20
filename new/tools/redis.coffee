@@ -8,7 +8,6 @@ r.on "error", (_e)->
 
 r.flushall()
 
-
 module.exports =
     pub: (_data)->
         data = querystring.parse _data
@@ -24,5 +23,9 @@ module.exports =
             data.room = room
         #io.sockets.in(room).emit data.type, data
         console.log data
-        r.publish "honey:pusher:2", JSON.stringify data
-    onlines: -> r.publish "honey:pusher:2", 'onlines'
+        r.publish "honey:pusher:1", JSON.stringify data
+        #r.publish "honey:pusher:2", JSON.stringify data
+        #r.publish "honey:pusher:3", JSON.stringify data
+        #r.publish "honey:pusher:4", JSON.stringify data
+        #r.publish "honey:pusher:5", JSON.stringify data
+    onlines: -> r.publish "honey:pusher", 'onlines'

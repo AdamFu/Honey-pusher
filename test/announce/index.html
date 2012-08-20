@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Test-local-socket</title>
+</head>
+<body>
+    
+<script src="http://localhost:8888/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect('http://localhost:8888', {
+        'max reconnection attempts':5,
+        'connect timeout':5000,
+        'transports':['websocket', 'xhr-polling', 'jsonp-polling']
+    });
+
+    socket.on('connect', function (data) {
+        console.log('connected....');
+    });
+    socket.on('msg', function (data) {
+        console.log(data);
+    });
+    socket.on('subscribe', function (data) {
+        console.log(data);
+    });
+
+</script>
+
+</body>
+</html>

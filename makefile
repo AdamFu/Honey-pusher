@@ -1,6 +1,11 @@
 npm:
 	npm install
 
+env:
+	sudo /usr/local/nginx/sbin/nginx -c /usr/local/etc/nginx/localhost.conf
+	redis-server &> /dev/null &
+	/usr/local/sbin/haproxy -D -f /Users/linlei/www/honey-pusher/haproxy.cfg 
+
 run:
 	#@echo kill node process
 	#@killall -v node
