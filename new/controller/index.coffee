@@ -1,14 +1,19 @@
 reqs = require '../tools/req'
-#r = require '../tools/redis'
 announce = require '../tools/announce'
+pass = require '../tools/pass'
 url = require "url"
 
 module.exports = (req, res)->
     if req.method is 'POST' and req.url.match /^\/pub$/
         # publish
         reqs.body req, (_body)->
-            announce.pub _body
-            res.end '{"status": "ok"}'
+
+            if pass _body
+                announce.pub _body
+                reqs.send res,'{"status": "ok"}'
+            else
+                reqs.send res,'{"status": "error"}'
+
     else
         uri = url.parse(req.url).pathname
         switch true

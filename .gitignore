@@ -1,6 +1,7 @@
 build
 node_modules
 src/tools/auth.coffee
+new/tools/pass.coffee
 # Test DB
 *.sqlite
 # Test

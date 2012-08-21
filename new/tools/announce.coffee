@@ -14,10 +14,6 @@ module.exports =
                 room = "#{data.project}:channel:#{data.channel}"
             else
                 room = if data.to then "#{ data.project}:#{ data.to }" else data.project
-            #data.room = room
-        #io.sockets.in(room).emit data.type, data
-        #console.log announce
         announce.in(room).emit data.type, data
-        #announce.emit data.type, data
 
     onlines: -> console.log 'onlines'

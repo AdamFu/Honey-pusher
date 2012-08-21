@@ -9,7 +9,7 @@ nodeId = process.argv[3] or 0
 io = sio.listen ~~socket_port
 
 
-#io.set 'log level', 1
+io.set 'log level', 1
 io.enable 'browser client etag'
 io.set 'transports', [
     'websocket',
@@ -29,12 +29,5 @@ io.set 'store', new RedisStore {
     redisClient : client
     nodeId: ()-> return nodeId
 }
-
-#io.set 'store', new RedisStore {
-#    nodeId: ()-> return nodeId
-#    #redisPub: redispub
-#    #redisSub: redisSub
-#    #redisClient: redisClient
-#}
 
 module.exports = -> io
