@@ -46,10 +46,11 @@ function Announce (options) {
 
   // node id to uniquely identify this node
   this.nodeId = options.nodeId || (function () { return Math.abs(Math.random() * Math.random() * Date.now() | 0); })();
+    
 
   // namespace for the announcements
   this.namespace = options.namespace || '';
-
+    
   // packing mechanism
   if (options.pack) {
     this.pack = options.pack;
@@ -173,14 +174,25 @@ Announce.prototype.setFlags = function () {
  */
 
 Announce.prototype.packet = function (packet) {
-  packet.endpoint = this.namespace + (this.flags.room ? '/' + this.flags.room : '');
+
+  //packet.endpoint = this.namespace + (this.flags.room ? '/' + this.flags.room : '');
+  packet.endpoint = this.namespace
+  this.flags.endpoint = this.flags.room ? '/' + this.flags.room : '';
 
   var volatile = this.flags.volatile
     , exceptions = []
     , packet = parser.encodePacket(packet);
-
+    
+  
+  console.log('sio-announce.js flags')
+  //{ endpoint: '/abc', room: 'abc' }
+  console.log(packet);
+  console.log('------------------->')
   this.publish('dispatch', this.flags.endpoint, packet, volatile, exceptions);
-
+  //this.publish('dispatch', "abc", packet, volatile, exceptions);
+  
+  //this.publish('dispatch:pusher', this.flags.endpoint, packet, volatile, exceptions);
+    
   this.setFlags();
 
   return this;
@@ -195,6 +207,5 @@ Announce.prototype.packet = function (packet) {
 
 Announce.prototype.publish = function (name) {
   var args = slice.call(arguments, 1);
-  console.log(name, this.pack({ nodeId: this.nodeId, args: args }));
   this.pub.publish(name, this.pack({ nodeId: this.nodeId, args: args }));
 };

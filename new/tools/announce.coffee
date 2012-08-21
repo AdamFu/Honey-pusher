@@ -1,11 +1,8 @@
 # https://github.com/dshaw/socket.io-announce
 #
 querystring = require 'querystring'
-#announce = require('socket.io-announce').createClient(nodeId: 2)
+announce = require('socket.io-announce').createClient()
 
-announce = require('./sio-announce').createClient()
-
-#announce.emit('quote', data);
 module.exports =
     pub: (_data)->
         data = querystring.parse _data
@@ -20,13 +17,7 @@ module.exports =
             #data.room = room
         #io.sockets.in(room).emit data.type, data
         #console.log announce
-        #announce.in(room).emit data.type, data
-        announce.emit data.type, data
+        announce.in(room).emit data.type, data
+        #announce.emit data.type, data
 
     onlines: -> console.log 'onlines'
-
-a = ()->
-    announce.in('abc').emit 'msg', 'what...'
-    announce.emit 'msg', 'what...is fuck'
-
-setTimeout a, 10000

@@ -21,5 +21,6 @@ http_server.listen ~~port
 announce = require('socket.io-announce').createClient()
 a = ()->
     announce.in('xxx').emit 'msg', 'Hi...Hi...Hi...only room xxx'
+    announce.in('yyy').emit 'msg', 'msg will never show'
     announce.emit 'msg', 'Hi...Hi...Hi...all clients will get this msg'
 setInterval a, 5000
